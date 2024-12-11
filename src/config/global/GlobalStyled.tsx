@@ -11,7 +11,7 @@ export function GlobalStyled() {
   return (
     <>
       <CssBaseline />
-      <GlobalStyles styles={styles} />;
+      <GlobalStyles styles={styles} />
     </>
-  );
+  )
 }

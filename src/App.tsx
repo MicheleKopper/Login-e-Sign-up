@@ -5,7 +5,7 @@ function App() {
   return (
     <>
       <GlobalStyled />
-      <AppRoutes />;
+      <AppRoutes />
     </>
   );
 }
