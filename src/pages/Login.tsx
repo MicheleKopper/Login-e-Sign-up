@@ -12,6 +12,11 @@ import Grid2 from "@mui/material/Unstable_Grid2";
 import LockIcon from "@mui/icons-material/Lock";
 
 export function Login() {
+  /* Alerta para botões sem destino */
+  function handleImplements() {
+    alert("Not implementeds!");
+  }
+
   return (
     <Box
       sx={{
@@ -93,9 +98,9 @@ export function Login() {
               />
             </Grid2>
 
-            {/* Botão */}
+            {/* Enter */}
             <Grid2 xs={12}>
-              <Button variant="contained" fullWidth>
+              <Button variant="contained" fullWidth onClick={handleImplements}>
                 Enter
               </Button>
             </Grid2>
@@ -103,14 +108,21 @@ export function Login() {
             {/* Link de Registro */}
             <Grid2 xs={12} sx={{ textAlign: "center" }}>
               <Typography variant="body2">
-                Don't have an account? <a href="#register">Register</a>
+                Don't have an account?{" "}
+                <a href="#" onClick={handleImplements}>
+                  Register
+                </a>
               </Typography>
             </Grid2>
 
             {/* Copyright */}
             <Grid2 xs={12} sx={{ textAlign: "center", marginTop: 4 }}>
               <Typography variant="caption" color={"#758694"}>
-                Copyright © <a href="#">Michele Kopper</a>, 2024
+                Copyright ©{" "}
+                <a href="#" onClick={handleImplements}>
+                  Michele Kopper
+                </a>
+                , 2024
               </Typography>
             </Grid2>
           </Grid2>
