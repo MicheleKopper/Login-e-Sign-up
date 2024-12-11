@@ -4,12 +4,19 @@ import {
   Button,
   Card,
   Checkbox,
+  FormControl,
   FormControlLabel,
   TextField,
   Typography,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import LockIcon from "@mui/icons-material/Lock";
+import { useState } from "react";
+
+interface ErrorFields {
+  email?: string;
+  password?: string;
+}
 
 export function Login() {
   /* Alerta para botões sem destino */
@@ -17,8 +24,42 @@ export function Login() {
     alert("Not implementeds!");
   }
 
+  // VALIDAÇÃO EMAIL E SENHA
+  const [errors, setError] = useState<ErrorFields>({
+    email: "",
+    password: "",
+  });
+
+  function validate(email: string, password: string) {
+    if (!email) {
+      setError({ email: "E-mail is required" });
+      return;
+    }
+
+    if (!password) {
+      setError({ password: "Password is required" });
+      return;
+    }
+
+    setError({});
+  }
+
+  function hendleLogin(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    const email = event.currentTarget["email"].value;
+    const password = event.currentTarget["password"].value;
+    const remember = event.currentTarget["remember"].checked;
+
+    validate(email, password);
+
+    console.log({ email, password, remember });
+  }
+
   return (
     <Box
+      component={"form"}
+      onSubmit={hendleLogin}
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -70,28 +111,49 @@ export function Login() {
 
             {/* Inputs */}
             <Grid2 xs={12}>
-              <TextField
-                id="email"
-                label="E-mail*"
-                variant="outlined"
-                size="small"
-                fullWidth
-              />
+              <FormControl fullWidth error={!!errors.email}>
+                <TextField
+                  id="email"
+                  name="email"
+                  label="E-mail*"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  error={!!errors.email}
+                  helperText={errors.email}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setError({ ...errors, email: "" });
+                    }
+                  }}
+                />
+              </FormControl>
             </Grid2>
 
             <Grid2 xs={12}>
-              <TextField
-                id="password"
-                label="Password*"
-                variant="outlined"
-                size="small"
-                fullWidth
-              />
+              <FormControl fullWidth error={!!errors.password}>
+                <TextField
+                  id="password"
+                  name="password"
+                  label="Password*"
+                  variant="outlined"
+                  size="small"
+                  fullWidth
+                  error={!!errors.password}
+                  helperText={errors.password}
+                  onChange={(e) => {
+                    if (e.target.value) {
+                      setError({ ...errors, password: "" });
+                    }
+                  }}
+                />
+              </FormControl>
             </Grid2>
 
             {/* Checkbox */}
             <Grid2 xs={12}>
               <FormControlLabel
+                name="remember"
                 control={<Checkbox />}
                 label="Remember me"
                 sx={{ color: "#758694" }}
@@ -100,7 +162,7 @@ export function Login() {
 
             {/* Enter */}
             <Grid2 xs={12}>
-              <Button variant="contained" fullWidth onClick={handleImplements}>
+              <Button variant="contained" fullWidth type="submit">
                 Enter
               </Button>
             </Grid2>
