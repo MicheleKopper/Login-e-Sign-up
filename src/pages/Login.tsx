@@ -11,7 +11,11 @@ import {
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
 import LockIcon from "@mui/icons-material/Lock";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { users } from "../mock/users";
+import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { login } from "../store/modules/userLogged/userLoggedSlice";
+import { useNavigate } from "react-router-dom";
 
 interface ErrorFields {
   email?: string;
@@ -19,10 +23,16 @@ interface ErrorFields {
 }
 
 export function Login() {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const userLoggedRedux = useAppSelector((state) => state.userLogged);
+
   /* Alerta para botões sem destino */
   function handleImplements() {
     alert("Not implementeds!");
   }
+
+  console.log(users);
 
   // VALIDAÇÃO EMAIL E SENHA
   const [errors, setError] = useState<ErrorFields>({
@@ -44,7 +54,7 @@ export function Login() {
     setError({});
   }
 
-  function hendleLogin(event: React.FormEvent<HTMLFormElement>) {
+  function handleLogin(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const email = event.currentTarget["email"].value;
@@ -53,13 +63,23 @@ export function Login() {
 
     validate(email, password);
 
-    console.log({ email, password, remember });
+    dispatch(login({ email, password, remember }));
   }
+
+  useEffect(() => {
+    // Se existir as infos do usserLogged eu navego
+
+    if (userLoggedRedux.id && !userLoggedRedux.errors) {
+      setTimeout(() => {
+        navigate("/home");
+      }, 1000);
+    }
+  }, [userLoggedRedux, navigate]);
 
   return (
     <Box
       component={"form"}
-      onSubmit={hendleLogin}
+      onSubmit={handleLogin}
       sx={{
         display: "flex",
         justifyContent: "center",
@@ -119,8 +139,8 @@ export function Login() {
                   variant="outlined"
                   size="small"
                   fullWidth
-                  error={!!errors.email}
-                  helperText={errors.email}
+                  error={!!errors.email || !!userLoggedRedux.errors}
+                  helperText={errors.email || userLoggedRedux.errors}
                   onChange={(e) => {
                     if (e.target.value) {
                       setError({ ...errors, email: "" });
@@ -137,10 +157,11 @@ export function Login() {
                   name="password"
                   label="Password*"
                   variant="outlined"
+                  type="password"
                   size="small"
                   fullWidth
-                  error={!!errors.password}
-                  helperText={errors.password}
+                  error={!!errors.password || !!userLoggedRedux.errors}
+                  helperText={errors.password || userLoggedRedux.errors}
                   onChange={(e) => {
                     if (e.target.value) {
                       setError({ ...errors, password: "" });
