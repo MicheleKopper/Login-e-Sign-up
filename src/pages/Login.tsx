@@ -71,7 +71,7 @@ export function Login() {
 
     if (userLoggedRedux.id && !userLoggedRedux.errors) {
       setTimeout(() => {
-        navigate("/home");
+        navigate("/signup");
       }, 1000);
     }
   }, [userLoggedRedux, navigate]);
@@ -92,7 +92,7 @@ export function Login() {
         sx={{
           display: "flex",
           width: "60%",
-          height: "70%",
+          height: "auto",
           overflow: "hidden",
         }}
         elevation={2}
@@ -125,7 +125,7 @@ export function Login() {
               </Avatar>
 
               <Typography variant="h5" sx={{ marginTop: 2 }}>
-                Sign in
+                Sign In
               </Typography>
             </Grid2>
 
@@ -192,7 +192,7 @@ export function Login() {
             <Grid2 xs={12} sx={{ textAlign: "center" }}>
               <Typography variant="body2">
                 Don't have an account?{" "}
-                <a href="#" onClick={handleImplements}>
+                <a href="/signup">
                   Register
                 </a>
               </Typography>

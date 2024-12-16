@@ -1,10 +1,10 @@
-import { Button, Typography } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/modules/userLogged/userLoggedSlice";
+import { Button, Typography } from "@mui/material";
 
-export function Home() {
+export function Logout() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
