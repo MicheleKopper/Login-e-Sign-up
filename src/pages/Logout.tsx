@@ -2,7 +2,7 @@ import { useAppDispatch, useAppSelector } from "../store/hooks";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../store/modules/userLogged/userLoggedSlice";
-import { Button, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 
 export function Logout() {
   const navigate = useNavigate();
@@ -24,10 +24,20 @@ export function Logout() {
 
   return (
     <>
-      <Typography variant="h6">Welcome, {userLoggedRedux.name}</Typography>
-      <Button variant="contained" color="error" onClick={handleLogout}>
-        Logout
-      </Button>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+        }}
+      >
+        <Typography variant="h6">Welcome, {userLoggedRedux.name}</Typography>
+        <Button variant="contained" color="error" onClick={handleLogout}>
+          Logout
+        </Button>
+      </Box>
     </>
   );
 }

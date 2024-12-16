@@ -71,7 +71,7 @@ export function Login() {
 
     if (userLoggedRedux.id && !userLoggedRedux.errors) {
       setTimeout(() => {
-        navigate("/signup");
+        navigate("/logout");
       }, 1000);
     }
   }, [userLoggedRedux, navigate]);
@@ -191,10 +191,7 @@ export function Login() {
             {/* Link de Registro */}
             <Grid2 xs={12} sx={{ textAlign: "center" }}>
               <Typography variant="body2">
-                Don't have an account?{" "}
-                <a href="/signup">
-                  Register
-                </a>
+                Don't have an account? <a href="/signup">Register</a>
               </Typography>
             </Grid2>
 
